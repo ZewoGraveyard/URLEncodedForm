@@ -24,11 +24,11 @@
 
 @_exported import InterchangeData
 
-enum URLEncodedFormInterchangeDataSerializeError: ErrorType {
-    case InvalidInterchangeData
-}
-
 public struct URLEncodedFormInterchangeDataSerializer: InterchangeDataSerializer {
+    enum Error: ErrorType {
+        case InvalidInterchangeData
+    }
+
     public init() {}
 
     public func serialize(interchangeData: InterchangeData) throws -> Data {
@@ -37,31 +37,23 @@ public struct URLEncodedFormInterchangeDataSerializer: InterchangeDataSerializer
 
     public func serializeToString(interchangeData: InterchangeData) throws -> String {
         switch interchangeData {
-        case .NullValue: throw URLEncodedFormSerializeError.InvalidInterchangeData
-        case .BooleanValue: throw URLEncodedFormSerializeError.InvalidInterchangeData
-        case .NumberValue: throw URLEncodedFormSerializeError.InvalidInterchangeData
-        case .StringValue: throw URLEncodedFormSerializeError.InvalidInterchangeData
-        case .ArrayValue: throw URLEncodedFormSerializeError.InvalidInterchangeData
-        case .ObjectValue(let object): return try serializeObject(object)
+        case .Dictionary(let dictionary): return try serializeDictionary(dictionary)
+        default: throw Error.InvalidInterchangeData
         }
     }
 
-    func serializeObject(object: [String: InterchangeData]) throws -> String {
+    func serializeDictionary(object: [String: InterchangeData]) throws -> String {
         var string = ""
 
         for (index, (key, value)) in object.enumerate() {
             switch value {
-            case .NullValue: throw URLEncodedFormSerializeError.InvalidInterchangeData
-            case .BooleanValue: throw URLEncodedFormSerializeError.InvalidInterchangeData
-            case .NumberValue: throw URLEncodedFormSerializeError.InvalidInterchangeData
-            case .StringValue(let s):
+            case .Text(let text):
                 if index != 0 {
                     string += "&"
                 }
 
-                string += "\(key)=\(s)"
-            case .ArrayValue: throw URLEncodedFormSerializeError.InvalidInterchangeData
-            case .ObjectValue: throw URLEncodedFormSerializeError.InvalidInterchangeData
+                string += "\(key)=\(text)"
+            default: throw Error.InvalidInterchangeData
             }
         }
 
