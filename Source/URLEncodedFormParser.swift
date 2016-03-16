@@ -25,7 +25,7 @@
 @_exported import Data
 @_exported import String
 
-enum URLEncodedFormParseError: ErrorType {
+enum URLEncodedFormParseError: ErrorProtocol {
     case UnsupportedEncoding
     case MalformedURLEncodedForm
 }

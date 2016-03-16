@@ -25,7 +25,7 @@
 @_exported import InterchangeData
 @_exported import String
 
-enum URLEncodedFormInterchangeDataParseError: ErrorType {
+enum URLEncodedFormInterchangeDataParseError: ErrorProtocol {
     case UnsupportedEncoding
     case MalformedURLEncodedForm
 }

@@ -24,7 +24,7 @@
 
 @_exported import Data
 
-enum URLEncodedFormSerializeError: ErrorType {
+enum URLEncodedFormSerializeError: ErrorProtocol {
     case InvalidInterchangeData
 }
 
@@ -38,7 +38,7 @@ public struct URLEncodedFormSerializer {
     public func serializeToString(urlEncodedForm: URLEncodedForm) -> String {
         var string = ""
 
-        for (index, (key, value)) in urlEncodedForm.enumerate() {
+        for (offset: index, element: (key: key, value: value)) in urlEncodedForm.enumerated() {
             if index != 0 {
                 string += "&"
             }

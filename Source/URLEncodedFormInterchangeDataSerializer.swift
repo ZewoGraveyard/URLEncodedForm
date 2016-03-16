@@ -25,7 +25,7 @@
 @_exported import InterchangeData
 
 public struct URLEncodedFormInterchangeDataSerializer: InterchangeDataSerializer {
-    enum Error: ErrorType {
+    enum Error: ErrorProtocol {
         case InvalidInterchangeData
     }
 
@@ -45,7 +45,7 @@ public struct URLEncodedFormInterchangeDataSerializer: InterchangeDataSerializer
     func serializeDictionary(object: [String: InterchangeData]) throws -> String {
         var string = ""
 
-        for (index, (key, value)) in object.enumerate() {
+        for (offset: index, element: (key: key, value: value)) in object.enumerated() {
             switch value {
             case .Text(let text):
                 if index != 0 {
