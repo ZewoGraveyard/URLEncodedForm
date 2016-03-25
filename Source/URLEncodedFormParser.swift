@@ -26,8 +26,8 @@
 @_exported import String
 
 enum URLEncodedFormParseError: ErrorProtocol {
-    case UnsupportedEncoding
-    case MalformedURLEncodedForm
+    case unsupportedEncoding
+    case malformedURLEncodedForm
 }
 
 public struct URLEncodedFormParser {
@@ -35,7 +35,7 @@ public struct URLEncodedFormParser {
 
     public func parse(data: Data) throws -> URLEncodedForm {
         guard let string = try? String(data: data) else {
-            throw URLEncodedFormParseError.UnsupportedEncoding
+            throw URLEncodedFormParseError.unsupportedEncoding
         }
 
         var urlEncodedForm: URLEncodedForm = [:]
@@ -49,7 +49,7 @@ public struct URLEncodedFormParser {
 
                 urlEncodedForm[key] = value
             } else {
-                throw URLEncodedFormParseError.MalformedURLEncodedForm
+                throw URLEncodedFormParseError.malformedURLEncodedForm
             }
         }
 

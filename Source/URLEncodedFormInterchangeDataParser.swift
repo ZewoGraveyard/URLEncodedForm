@@ -22,12 +22,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-@_exported import InterchangeData
-@_exported import String
-
 enum URLEncodedFormInterchangeDataParseError: ErrorProtocol {
-    case UnsupportedEncoding
-    case MalformedURLEncodedForm
+    case unsupportedEncoding
+    case malformedURLEncodedForm
 }
 
 public struct URLEncodedFormInterchangeDataParser: InterchangeDataParser {
@@ -35,7 +32,7 @@ public struct URLEncodedFormInterchangeDataParser: InterchangeDataParser {
 
     public func parse(data: Data) throws -> InterchangeData {
         guard let string = try? String(data: data) else {
-            throw URLEncodedFormParseError.UnsupportedEncoding
+            throw URLEncodedFormInterchangeDataParseError.unsupportedEncoding
         }
 
         var interchangeData: InterchangeData = [:]
@@ -49,7 +46,7 @@ public struct URLEncodedFormInterchangeDataParser: InterchangeDataParser {
 
                 interchangeData[key] = InterchangeData.from(value)
             } else {
-                throw URLEncodedFormParseError.MalformedURLEncodedForm
+                throw URLEncodedFormInterchangeDataParseError.malformedURLEncodedForm
             }
         }
 

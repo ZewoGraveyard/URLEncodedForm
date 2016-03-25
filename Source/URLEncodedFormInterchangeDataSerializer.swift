@@ -26,7 +26,7 @@
 
 public struct URLEncodedFormInterchangeDataSerializer: InterchangeDataSerializer {
     enum Error: ErrorProtocol {
-        case InvalidInterchangeData
+        case invalidInterchangeData
     }
 
     public init() {}
@@ -37,8 +37,8 @@ public struct URLEncodedFormInterchangeDataSerializer: InterchangeDataSerializer
 
     public func serializeToString(interchangeData: InterchangeData) throws -> String {
         switch interchangeData {
-        case .Dictionary(let dictionary): return try serializeDictionary(dictionary)
-        default: throw Error.InvalidInterchangeData
+        case .dictionaryValue(let dictionary): return try serializeDictionary(dictionary)
+        default: throw Error.invalidInterchangeData
         }
     }
 
@@ -47,13 +47,13 @@ public struct URLEncodedFormInterchangeDataSerializer: InterchangeDataSerializer
 
         for (offset: index, element: (key: key, value: value)) in object.enumerated() {
             switch value {
-            case .Text(let text):
+            case .stringValue(let text):
                 if index != 0 {
                     string += "&"
                 }
 
                 string += "\(key)=\(text)"
-            default: throw Error.InvalidInterchangeData
+            default: throw Error.invalidInterchangeData
             }
         }
 
