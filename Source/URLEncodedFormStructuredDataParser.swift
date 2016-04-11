@@ -22,20 +22,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-enum URLEncodedFormInterchangeDataParseError: ErrorProtocol {
-    case unsupportedEncoding
-    case malformedURLEncodedForm
-}
+import StructuredData
 
-public struct URLEncodedFormInterchangeDataParser: InterchangeDataParser {
+public struct URLEncodedFormStructuredDataParser: StructuredDataParser {
     public init() {}
 
-    public func parse(data: Data) throws -> InterchangeData {
+    public func parse(data: Data) throws -> StructuredData {
         guard let string = try? String(data: data) else {
-            throw URLEncodedFormInterchangeDataParseError.unsupportedEncoding
+            throw Error.unsupportedEncoding
         }
 
-        var interchangeData: InterchangeData = [:]
+        var structuredData: StructuredData = [:]
 
         for parameter in string.split("&") {
             let tokens = parameter.split("=")
@@ -44,12 +41,17 @@ public struct URLEncodedFormInterchangeDataParser: InterchangeDataParser {
                 let key = try String(percentEncoded: tokens[0])
                 let value = try String(percentEncoded: tokens[1])
 
-                interchangeData[key] = InterchangeData.from(value)
+                structuredData[key] = .from(value)
             } else {
-                throw URLEncodedFormInterchangeDataParseError.malformedURLEncodedForm
+                throw Error.malformedURLEncodedForm
             }
         }
 
-        return interchangeData
+        return structuredData
+    }
+    
+    enum Error: ErrorProtocol {
+        case unsupportedEncoding
+        case malformedURLEncodedForm
     }
 }

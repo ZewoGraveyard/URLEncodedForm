@@ -22,27 +22,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-@_exported import InterchangeData
+import StructuredData
 
-public struct URLEncodedFormInterchangeDataSerializer: InterchangeDataSerializer {
+public struct URLEncodedFormStructuredDataSerializer: StructuredDataSerializer {
     enum Error: ErrorProtocol {
-        case invalidInterchangeData
+        case invalidStructuredData
     }
 
     public init() {}
 
-    public func serialize(interchangeData: InterchangeData) throws -> Data {
-        return try serializeToString(interchangeData).data
+    public func serialize(structuredData: StructuredData) throws -> Data {
+        return try serializeToString(structuredData).data
     }
 
-    public func serializeToString(interchangeData: InterchangeData) throws -> String {
-        switch interchangeData {
+    public func serializeToString(structuredData: StructuredData) throws -> String {
+        switch structuredData {
         case .dictionaryValue(let dictionary): return try serializeDictionary(dictionary)
-        default: throw Error.invalidInterchangeData
+        default: throw Error.invalidStructuredData
         }
     }
 
-    func serializeDictionary(object: [String: InterchangeData]) throws -> String {
+    func serializeDictionary(object: [String: StructuredData]) throws -> String {
         var string = ""
 
         for (offset: index, element: (key: key, value: value)) in object.enumerated() {
@@ -53,7 +53,7 @@ public struct URLEncodedFormInterchangeDataSerializer: InterchangeDataSerializer
                 }
 
                 string += "\(key)=\(text)"
-            default: throw Error.invalidInterchangeData
+            default: throw Error.invalidStructuredData
             }
         }
 
