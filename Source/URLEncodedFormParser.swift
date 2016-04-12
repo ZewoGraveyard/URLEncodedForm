@@ -22,7 +22,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-@_exported import Data
+@_exported import C7
 @_exported import String
 
 enum URLEncodedFormParseError: ErrorProtocol {
