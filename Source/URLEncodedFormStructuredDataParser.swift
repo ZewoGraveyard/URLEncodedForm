@@ -27,15 +27,15 @@ import StructuredData
 public struct URLEncodedFormStructuredDataParser: StructuredDataParser {
     public init() {}
 
-    public func parse(data: Data) throws -> StructuredData {
+    public func parse(_ data: Data) throws -> StructuredData {
         guard let string = try? String(data: data) else {
             throw Error.unsupportedEncoding
         }
 
         var structuredData: StructuredData = [:]
 
-        for parameter in string.split("&") {
-            let tokens = parameter.split("=")
+        for parameter in string.split(separator: "&") {
+            let tokens = parameter.split(separator: "=")
 
             if tokens.count == 2 {
                 let key = try String(percentEncoded: tokens[0])

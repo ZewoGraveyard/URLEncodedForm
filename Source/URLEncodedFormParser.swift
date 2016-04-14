@@ -40,8 +40,8 @@ public struct URLEncodedFormParser {
 
         var urlEncodedForm: URLEncodedForm = [:]
 
-        for parameter in string.split("&") {
-            let tokens = parameter.split("=")
+        for parameter in string.split(separator: "&") {
+            let tokens = parameter.split(separator: "=")
 
             if tokens.count == 2 {
                 let key = try String(percentEncoded: tokens[0])

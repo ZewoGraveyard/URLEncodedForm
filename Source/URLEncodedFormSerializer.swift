@@ -29,11 +29,11 @@ enum URLEncodedFormSerializeError: ErrorProtocol {
 public struct URLEncodedFormSerializer {
     public init() {}
 
-    public func serialize(urlEncodedForm: URLEncodedForm) -> Data {
+    public func serialize(_ urlEncodedForm: URLEncodedForm) -> Data {
         return serializeToString(urlEncodedForm).data
     }
 
-    public func serializeToString(urlEncodedForm: URLEncodedForm) -> String {
+    public func serializeToString(_ urlEncodedForm: URLEncodedForm) -> String {
         var string = ""
 
         for (offset: index, element: (key: key, value: value)) in urlEncodedForm.enumerated() {
