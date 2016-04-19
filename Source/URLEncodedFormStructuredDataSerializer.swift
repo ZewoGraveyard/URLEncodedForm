@@ -31,18 +31,18 @@ public struct URLEncodedFormStructuredDataSerializer: StructuredDataSerializer {
 
     public init() {}
 
-    public func serialize(structuredData: StructuredData) throws -> Data {
+    public func serialize(_ structuredData: StructuredData) throws -> Data {
         return try serializeToString(structuredData).data
     }
 
-    public func serializeToString(structuredData: StructuredData) throws -> String {
+    public func serializeToString(_ structuredData: StructuredData) throws -> String {
         switch structuredData {
         case .dictionaryValue(let dictionary): return try serializeDictionary(dictionary)
         default: throw Error.invalidStructuredData
         }
     }
 
-    func serializeDictionary(object: [String: StructuredData]) throws -> String {
+    func serializeDictionary(_ object: [String: StructuredData]) throws -> String {
         var string = ""
 
         for (offset: index, element: (key: key, value: value)) in object.enumerated() {
