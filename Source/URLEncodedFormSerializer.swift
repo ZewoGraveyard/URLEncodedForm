@@ -23,7 +23,7 @@
 // SOFTWARE.
 
 enum URLEncodedFormSerializeError: ErrorProtocol {
-    case invalidInterchangeData
+    case invalidStructuredData
 }
 
 public struct URLEncodedFormSerializer {

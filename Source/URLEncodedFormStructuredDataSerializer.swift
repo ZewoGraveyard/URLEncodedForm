@@ -1,4 +1,4 @@
-// URLEncodedFormInterchangeDataSerializer.swift
+// URLEncodedFormStructuredDataSerializer.swift
 //
 // The MIT License (MIT)
 //

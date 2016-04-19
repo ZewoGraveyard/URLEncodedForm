@@ -1,4 +1,4 @@
-// URLEncodedFormInterchangeDataParser.swift
+// URLEncodedFormStructuredDataParser.swift
 //
 // The MIT License (MIT)
 //
