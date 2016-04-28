@@ -41,16 +41,29 @@ public struct URLEncodedFormParser {
         var urlEncodedForm: URLEncodedForm = [:]
 
         for parameter in string.split(separator: "&") {
-            let tokens = parameter.split(separator: "=")
+            var key = ""
+            var value = ""
+            var finishedKeyParsing = false
+            for character in parameter.characters {
+                guard !finishedKeyParsing else {
+                    value.append(character)
+                    continue
+                }
 
-            if tokens.count == 2 {
-                let key = try String(percentEncoded: tokens[0])
-                let value = try String(percentEncoded: tokens[1])
+                guard character != "=" else {
+                    finishedKeyParsing = true
+                    continue
+                }
 
-                urlEncodedForm[key] = value
-            } else {
+                key.append(character)
+            }
+
+
+            guard finishedKeyParsing else {
                 throw URLEncodedFormParseError.malformedURLEncodedForm
             }
+
+            urlEncodedForm[try String(percentEncoded: key)] = try String(percentEncoded: value)
         }
 
         return urlEncodedForm
