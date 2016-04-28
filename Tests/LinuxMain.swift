@@ -5,6 +5,7 @@ import XCTest
 
 XCTMain([
     testCase(URLEncodedFormTests.allTests)
+    testCase(URLEncodedFormParserTests.allTests)
 ])
 
 #endif
