@@ -4,8 +4,8 @@ import XCTest
 @testable import URLEncodedFormTestSuite
 
 XCTMain([
-    testCase(URLEncodedFormTests.allTests)
-    testCase(URLEncodedFormParserTests.allTests)
+    testCase(URLEncodedFormTests.allTests),
+    testCase(URLEncodedFormParserTests.allTests),
 ])
 
 #endif
