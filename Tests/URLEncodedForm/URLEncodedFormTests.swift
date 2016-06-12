@@ -8,7 +8,7 @@ class URLEncodedFormTests: XCTestCase {
 }
 
 extension URLEncodedFormTests {
-    static var allTests: [(String, URLEncodedFormTests -> () throws -> Void)] {
+    static var allTests: [(String, (URLEncodedFormTests) -> () throws -> Void)] {
         return [
            ("testReality", testReality),
         ]

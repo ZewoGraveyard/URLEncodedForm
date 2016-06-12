@@ -37,7 +37,7 @@ public struct URLEncodedFormStructuredDataSerializer: StructuredDataSerializer {
 
     public func serializeToString(_ structuredData: StructuredData) throws -> String {
         switch structuredData {
-        case .dictionaryValue(let dictionary): return try serializeDictionary(dictionary)
+        case .dictionary(let dictionary): return try serializeDictionary(dictionary)
         default: throw Error.invalidStructuredData
         }
     }
@@ -47,7 +47,7 @@ public struct URLEncodedFormStructuredDataSerializer: StructuredDataSerializer {
 
         for (offset: index, element: (key: key, value: value)) in object.enumerated() {
             switch value {
-            case .stringValue(let text):
+            case .string(let text):
                 if index != 0 {
                     string += "&"
                 }
