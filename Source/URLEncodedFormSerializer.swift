@@ -36,7 +36,7 @@ public struct URLEncodedFormSerializer {
     public func serializeToString(_ urlEncodedForm: URLEncodedForm) -> String {
         var string = ""
 
-        for (offset: index, element: (key: key, value: value)) in urlEncodedForm.enumerated() {
+        for (offset: index, element: (key: key, value: value)) in urlEncodedForm.values.enumerated() {
             if index != 0 {
                 string += "&"
             }
