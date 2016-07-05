@@ -45,16 +45,13 @@ public struct URLEncodedFormStructuredDataSerializer: StructuredDataSerializer {
     func serializeDictionary(_ object: [String: StructuredData]) throws -> String {
         var string = ""
 
-        for (offset: index, element: (key: key, value: value)) in object.enumerated() {
-            switch value {
-            case .string(let text):
-                if index != 0 {
-                    string += "&"
-                }
-
-                string += "\(key)=\(text)"
-            default: throw Error.invalidStructuredData
+        for (offset: index, element: (key: key, value: structuredData)) in object.enumerated() {
+            if index != 0 {
+                string += "&"
             }
+            string += "\(key)="
+            let value = try structuredData.asString(converting: true)
+            string += try value.percentEncoded(allowing: .uriQueryAllowed)
         }
 
         return string

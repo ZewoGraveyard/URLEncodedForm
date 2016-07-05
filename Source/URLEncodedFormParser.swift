@@ -63,7 +63,7 @@ public struct URLEncodedFormParser {
                 throw URLEncodedFormParseError.malformedURLEncodedForm
             }
 
-            urlEncodedForm[try String(percentEncoded: key)] = try String(percentEncoded: value)
+            urlEncodedForm.values[try String(percentEncoded: key)] = try String(percentEncoded: value)
         }
 
         return urlEncodedForm

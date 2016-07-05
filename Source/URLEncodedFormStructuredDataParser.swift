@@ -41,7 +41,7 @@ public struct URLEncodedFormStructuredDataParser: StructuredDataParser {
                 let key = try String(percentEncoded: tokens[0])
                 let value = try String(percentEncoded: tokens[1])
 
-                structuredData[key] = .infer(value)
+                structuredData[key] = .string(value)
             } else {
                 throw Error.malformedURLEncodedForm
             }
